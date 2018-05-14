@@ -1,0 +1,19 @@
+<div>
+  <form [formGroup]="productsForm" (submit)="showData()">
+    <div>
+      Category:
+      <input type="text" formControlName="category" />
+    </div>
+    <div formArrayName="brands" *ngFor="let brand of productsForm.controls.brands.controls; let i=index;">
+        <div formGroupName="{{i}}">
+          {{ brand.get('title').value }}
+          <input type="text" formControlName="value" />
+        </div>
+    </div>
+    <div>
+      Male: <input type="radio" formControlName="gender" value="male"/> <br>
+      Female: <input type="radio" formControlName="gender" value="female"/>
+    </div>
+    <input type="submit" value="Click Me!"/>
+  </form>
+</div>
