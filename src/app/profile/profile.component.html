@@ -10,10 +10,12 @@
           <input type="text" formControlName="value" />
         </div>
     </div>
-    <div>
-      Male: <input type="radio" formControlName="gender" value="male"/> <br>
-      Female: <input type="radio" formControlName="gender" value="female"/>
-    </div>
+    <div formArrayName="gender" *ngFor="let gender of productsForm.controls.gender.controls; let i=index;">
+      <div formGroupName="{{i}}">
+        {{ gender.get('title').value }}
+        <input type="radio" formControlName="gender" name="gender"/>
+      </div>
+  </div>
     <input type="submit" value="Click Me!"/>
   </form>
 </div>

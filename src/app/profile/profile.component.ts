@@ -11,29 +11,47 @@ export class ProfileComponent implements OnInit {
     {
       'brand': "Apple"
     }
-  ]
+  ];
+  gender = [
+    {
+      'sex':'Male'
+    },
+    {
+      'sex':'Female'
+    }
+  ];
   constructor(private fb:FormBuilder) { }
 
   ngOnInit() {
-    this.createForm(this.products);
+    this.createForm(this.products,this.gender);
   }
 
-  createForm(products){
-    var arr = [];
+  createForm(products,gender) {
+    var productsArr = [];
+    var genderArr = [];
     for(var i=0; i<products.length; i++) {
-      arr.push(this.buildProduct(products[i]));
+      productsArr.push(this.buildProduct(products[i]));
     }
-    console.log(arr);
+    for(var i=0; i<gender.length; i++) {
+      genderArr.push(this.buildGender(gender[i]));
+    }
     this.productsForm = this.fb.group({
       category:[''],
-      brands: this.fb.array(arr),
-      gender: ['']
+      brands: this.fb.array(productsArr),
+      gender: this.fb.array(genderArr)
     });
   }
 
   buildProduct(product) :FormGroup {
     return this.fb.group({
       title: [product.brand],
+      value: ['']
+    })
+  }
+  
+  buildGender(gender) :FormGroup {
+    return this.fb.group({
+      title: [gender.sex],
       value: ['']
     })
   }
